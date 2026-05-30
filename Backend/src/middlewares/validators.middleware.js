@@ -39,5 +39,5 @@ export const registerValidationRules = [
     .isString()
     .withMessage("lastName must be String"),
   respondWithValidationErrors,
-]
+];
 
