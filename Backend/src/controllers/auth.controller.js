@@ -53,5 +53,51 @@ export const registerUser = async (req, res) => {
   })
 }
 
+/* function for Login user */
+export const loginUser = async (req, res) => {
+  const { username, email, password } = req.body;
 
+  /* Check user by { username, email} to check it is available or not */
+  const user = await userModel.findOne({
+    $or: [
+      { username },
+      { email }
+    ]
+  })
 
+  /* If user not found*/
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found.",
+    })
+  }
+
+  /* Check user that available user has same password */
+  const isMatched = await bcrypt.compare(password, user.password);
+
+  /* If password not matched */
+  if (!isMatched) {
+    return res.status(401).json({
+      message: "Invalid password.",
+    })
+  }
+
+  /* If all of those found then give a token to user */
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+  /* Save token in the cookie */
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000 //1day
+  })
+
+  res.status(200).json({
+    message: "User loggedIn Succcessfully.",
+    user: {
+      username: user.username,
+      email: user.email,
+      fullName: user.fullName,
+    }
+  })
+}

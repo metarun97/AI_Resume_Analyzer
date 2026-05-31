@@ -1,5 +1,5 @@
 /* Import elements */
-import { body, validationResult } from 'express-validator';
+import { body, oneOf, validationResult } from 'express-validator';
 
 /* User validation result array */
 const respondWithValidationErrors = (req, res, next) => {
@@ -38,6 +38,30 @@ export const registerValidationRules = [
     .withMessage("lastName is required")
     .isString()
     .withMessage("lastName must be String"),
+  respondWithValidationErrors,
+];
+
+/* User validations for login user */
+export const loginValidationRules = [
+  oneOf(
+    [
+      body("username")
+        .trim()
+        .notEmpty()
+        .withMessage("username is required")
+        .isString()
+        .withMessage("username must be String"),
+      body("email")
+        .trim()
+        .notEmpty()
+        .isEmail()
+        .withMessage("Valid email required"),
+    ],
+    "Either username or email is required"
+  ),
+  body("password")
+    .isLength({ min: 6 })
+    .withMessage("password must be at least 6 character"),
   respondWithValidationErrors,
 ];
 
