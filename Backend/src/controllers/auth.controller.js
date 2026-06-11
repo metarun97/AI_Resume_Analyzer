@@ -63,7 +63,7 @@ export const loginUser = async (req, res) => {
       { username },
       { email }
     ]
-  })
+  }).select("+password")
 
   /* If user not found*/
   if (!user) {
@@ -82,16 +82,16 @@ export const loginUser = async (req, res) => {
     })
   }
 
-  /* If all of those found then give a token to user */
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+  /* If all of those found then give a token to user (fallback secret for tests) */
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'test_jwt_secret', { expiresIn: "1d" });
 
   /* Save token in the cookie */
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     maxAge: 24 * 60 * 60 * 1000 //1day
   })
-
+  /* Final response */
   res.status(200).json({
     message: "User loggedIn Succcessfully.",
     user: {
@@ -99,5 +99,13 @@ export const loginUser = async (req, res) => {
       email: user.email,
       fullName: user.fullName,
     }
+  })
+}
+
+/* function for Me user */
+export const meUser = async (req, res) => {
+  res.status(200).json({
+    message: "User fetched Successfully",
+    user: req.user,
   })
 }
