@@ -3,7 +3,7 @@ import userModel from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-/* function for Register user */
+/* Controller for Register user */
 export const registerUser = async (req, res) => {
   const { username, email, password, fullName: { firstName, lastName } } = req.body;
 
@@ -53,7 +53,7 @@ export const registerUser = async (req, res) => {
   })
 }
 
-/* function for Login user */
+/* Controller for Login user */
 export const loginUser = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -102,10 +102,31 @@ export const loginUser = async (req, res) => {
   })
 }
 
-/* function for Me user */
+/* Controller for Me user */
 export const meUser = async (req, res) => {
   res.status(200).json({
     message: "User fetched Successfully",
     user: req.user,
   })
+}
+
+/* Controller for Logout user */
+export const logoutUser = async (req, res) => {
+  try {
+    // Clear the cookie from the browser's cookies:-
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+    })
+
+    // final response:-
+    res.status(200).json({
+      message:"User logout successfully.",
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    })
+  }
 }
