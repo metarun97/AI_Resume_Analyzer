@@ -22,9 +22,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false,
+
   },
 
-    /* Fullname Field */
+  /* Fullname Field */
   fullName: {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
