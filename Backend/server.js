@@ -1,11 +1,10 @@
-/* Import elements */
-import dotenv from "dotenv";
+/* Load environment variables first */
+import 'dotenv/config';
+import imagekit from "./src/config/imagekit.js";
 import app from './src/app.js';
 import dns from "dns";
 import connectToDb from "./src/db/db.js";
 
-/* Configure dotenv file */
-dotenv.config();
 
 /* Set DNS for server */
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
