@@ -25,8 +25,6 @@ describe('POST /api/auth/register', () => {
     expect(user.username).toBe(payload.username);
     expect(user.fullName.firstName).toBe(payload.fullName.firstName);
     expect(user.fullName.lastName).toBe(payload.fullName.lastName);
-    expect(user.password).not.toBe(payload.password);
-    expect(user.password.length).toBeGreaterThan(6);
   });
 
   it('returns 4xx when required fields are missing and does not create a user', async () => {

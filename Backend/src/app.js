@@ -3,7 +3,6 @@ import express from "express";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import authRoutes from './routes/auth.routes.js';
-import fileRoutes from './routes/resume.routes.js';
 
 
 /* Server created⬇️ */
@@ -21,7 +20,6 @@ app.use(cookieParser());
 
 /* Routes defined */
 app.use("/api/auth", authRoutes);
-app.use("/api/resumes", fileRoutes);
 
 
 /* Export element⬇️ */

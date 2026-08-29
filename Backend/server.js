@@ -1,6 +1,5 @@
 /* Load environment variables first */
 import 'dotenv/config';
-import imagekit from "./src/config/imagekit.js";
 import app from './src/app.js';
 import dns from "dns";
 import connectToDb from "./src/db/db.js";
