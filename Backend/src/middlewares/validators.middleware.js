@@ -55,3 +55,47 @@ export const loginValidationRules = [
 ];
 
 
+/* Resume validations for user */
+export const uploadResumeValidation = [
+  body("title")
+    .trim()
+    .notEmpty()
+    .withMessage("Resume title is required")
+    .isLength({ max: 100 })
+    .withMessage("Resume title cannot exceed 100 characters"),
+
+  body("originalFileName")
+    .trim()
+    .notEmpty()
+    .withMessage("Original file name is required")
+    .isLength({ max: 255 })
+    .withMessage("Original file name cannot exceed 255 characters"),
+
+  body("fileUrl")
+    .trim()
+    .notEmpty()
+    .withMessage("File URL is required")
+    .isURL()
+    .withMessage("Invalid file URL"),
+
+  body("fileKey")
+    .trim()
+    .notEmpty()
+    .withMessage("File key is required")
+    .isLength({ max: 255 })
+    .withMessage("File key cannot exceed 255 characters"),
+
+  body("fileSize")
+    .notEmpty()
+    .withMessage("File size is required")
+    .isInt({ min: 1 })
+    .withMessage("File size must be a positive number"),
+
+  body("mimeType")
+    .trim()
+    .notEmpty()
+    .withMessage("Mime type is required")
+    .equals("application/pdf")
+    .withMessage("Only PDF files are allowed"),
+  respondWithValidationErrors,
+];

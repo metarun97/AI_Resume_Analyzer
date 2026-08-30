@@ -3,7 +3,7 @@ import express from "express";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import authRoutes from './routes/auth.routes.js';
-
+import resumeRoutes from './routes/resume.routes.js';
 
 /* Server created⬇️ */
 const app = express();
@@ -18,8 +18,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-/* Routes defined */
+/* Auth Routes defined */
 app.use("/api/auth", authRoutes);
+
+/* Resume Routes defined */
+app.use("/api/resume", resumeRoutes);
 
 
 /* Export element⬇️ */
