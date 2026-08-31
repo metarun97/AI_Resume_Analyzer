@@ -55,7 +55,24 @@ const resumeSchema = new mongoose.Schema({
     default: "uploaded",
     index: true,
   },
-})
+
+  parsedText: {
+    type: String,
+    default: null,
+  },
+
+  processingError: {
+    type: String,
+    default: null,
+    maxlength: 1000,
+  },
+
+  version: {
+    type: Number,
+    default: 1,
+    min: 1,
+  }
+}, { timestamps: true })
 
 /* resumeModel created */
 const resumeModel = mongoose.model("resume", resumeSchema);
