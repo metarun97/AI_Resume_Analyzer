@@ -2,6 +2,7 @@
 import ImageKit from "imagekit";
 
 
+
 /* ImageKit credenti */
 const imagekit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -12,9 +13,9 @@ const imagekit = new ImageKit({
 /* Upload resume by ImageKit */
 export const uploadResume = async (file) => {
   try {
-    const result = await imagekit.files.upload({
+    const result = await imagekit.upload({
       file: file.buffer.toString("base64"),
-      fileName: file.originalName,
+      fileName: file.originalname,
       folder: "/resumes",
     })
     return {

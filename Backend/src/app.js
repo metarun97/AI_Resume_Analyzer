@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 /* Resume Routes defined */
-app.use("/api/resume", resumeRoutes);
+app.use("/api/resumes", resumeRoutes);
 
 
 /* Export element⬇️ */
