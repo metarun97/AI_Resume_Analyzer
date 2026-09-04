@@ -46,7 +46,13 @@ const resumeSchema = new mongoose.Schema({
   mimeType: {
     type: String,
     required: true,
-    enum: ["application/pdf"],
+    enum: ["application/pdf", "application/octet-stream"],
+  },
+
+  fileHash: {
+    type: String,
+    required: true,
+    index: true,
   },
 
   status: {
